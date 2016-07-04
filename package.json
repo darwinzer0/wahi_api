@@ -1,0 +1,12 @@
+{
+  "name": "wahi_api",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "meteor-node-stubs": "^0.2.3",
+    "pg": "^5.1.0",
+    "pg-query": "^0.11.0"
+  }
+}

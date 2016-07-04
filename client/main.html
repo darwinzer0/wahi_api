@@ -1,0 +1,50 @@
+<head>
+  <title>W&#257;hi, Discrete Global Grid Gazetteer</title>
+</head>
+
+<body>
+  <h1>W&#257;hi, Discrete Global Grid Gazetteer</h1>
+
+  {{> hello}}
+  {{> info}}
+</body>
+
+<template name="hello">
+  <img src="images/purple_nz.png" align="right" height="251" width="250" alt="hex nz"><p>W&#257;hi is a gazetteer service that connects over 11 million place identifiers from GeoNames to grid cells on a discrete global grid system, and exposes the information as Linked Data.  Currently, three types of grids exist in the gazetteer: Icosahedral Snyder Equal Area Aperture 3 Hexagon (ISEA3H), Icosahedral Snyder Equal Area Aperture 4 Hexagon (ISEA4H), and Icosahedral Snyder Equal Area Aperture 4 Triangle (ISEA4T).  All data returned from the service is in <a href="https://github.com/geojson/geojson-ld">GeoJSON-LD format</a>.</p>
+  <h3>Getting geometry of a cell</h3>
+  <p>Each cell in a grid has a URI that resolves to the geojson representation of the cell.  The URI has the format  http://dg3.cer.auckland.ac.nz/<b>{projection}</b>/<b>{orientation}</b>/<b>{level}</b>/cell/<b>{id}</b>.  The projection is one of &quot;isea3h&quot;, &quot;isea4h&quot;, &quot;isea4t&quot;.  The orientation is a representation of the zero vertex of the icosahedron that forms the grid.  Currently only &quot;11.25_58.2825&quot; is available.  Level is the level in the hierarchy of the grid system (higher level means more fine grained grid cells). </p> 
+<p>For example, the following request will return cell 10045 from level 7 of the ISEA3H grid system.</p>
+<p style="font-family: &quot;Courier New&quot;, Courier, monospace;">
+  http://dg3.cer.auckland.ac.nz/isea3h/11.25_58.2825/7/cell/10045
+</p>
+  <h3>Getting the centroid of cell</h3>
+  <p>The centroid of a cell can be retrieved by replacing &quot;cell&quot; with &quot;point&quot; in the URI.</p>
+<p style="font-family: &quot;Courier New&quot;, Courier, monospace;">
+  http://dg3.cer.auckland.ac.nz/isea3h/11.25_58.2825/7/point/10045
+</p>
+  <h3>Gazetteer service: getting the grid geometry for a place</h3>
+  <p>At present, all of the place identifiers in the W&#257;hi gazetteer come from the <a href="http://www.geonames.org">GeoNames</a> database. The URI to retrieve the grid geometry using a GeoNames identifier has the form http://dg3.cer.auckland.ac.nz/<b>{projection}</b>/<b>{orientation}</b>/<b>{level}</b>/gaz/<b>{geonameid}</b>.  </p>
+  <p>The following URI will return the cell geometries for the country of New Zealand (geonameid 2186224) for level 7 of the ISEA3H grid system:</p>
+<p style="font-family: &quot;Courier New&quot;, Courier, monospace;">
+  http://dg3.cer.auckland.ac.nz/isea3h/11.25_58.2825/7/gaz/2186224
+</p> 
+  <h3>Matching GeoJSON to the grid</h3>
+  <p>A POST request can be made to the service to return the grid cells that intersect an ad hoc GeoJSON geometry.  Only GeoJSON of type <b>Point</b> and <b>Polygon</b> is currently supported.  If you want to match a MultiPolygon, separate the GeoJSON into multiple Polygon requests and then union the results. Also, polygons that cross the antimeridian (longitude -180 degrees) will not return the correct answer.  Instead, split the polygon into multiple polygons before making the request.</p>
+  <p>The following curl request returns the grid cells and their geometries that intersect with a 1 degree bounding box:</p>
+<p style="font-family: &quot;Courier New&quot;, Courier, monospace;">
+  curl -X POST -d '{"type": "Polygon", "coordinates": [ [ [30, 10], [31, 10], [31, 11], [31, 10], [30, 10] ] ]}' http://dg3.cer.auckland.ac.nz/isea3h/11.25_58.2825/6/geojson --header "Content-Type:application/json"
+</p>
+</template>
+
+<template name="info">
+  <h2>Related links</h2>
+  <ul>
+    <li><a href="http://discreteglobalgrids.org/new-page-2/">Information on Discrete Global Grid Systems from Southern Terra Cognita Laboratory</a></li>
+    <li><a href="http://www.geonames.org/">GeoNames.org</a></li>
+  </ul>
+  <!-- <h2>Contact</h2>
+  <p>Benjamin Adams, Centre for eResearch, The University of Auckland &lt;b.adams@auckland.ac.nz&gt;</p>
+  <p></p>
+  -->
+  <p>* The name <a href="http://maoridictionary.co.nz/search?keywords=wahi">W&#257;hi</a> comes from the M&#257;ori noun for <i>place</i> and the verb meaning <i>to partition, subdivide</i>.</p>
+</template>

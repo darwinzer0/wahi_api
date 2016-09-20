@@ -3,6 +3,8 @@
   },
   "private": {
     "dbpass": "pass",
-    "dbuser": "user"
+    "dbuser": "user",
+    "dbhost": "localhost:5432",
+    "dbname": "dbname"
   }
 }

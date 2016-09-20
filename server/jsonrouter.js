@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import query from 'pg-query';
 
-query.connectionParameters = "postgres://ben:0rangepumpkint0es@localhost:5432/fp";
+query.connectionParameters = "postgres://"+Meteor.settings.private.dbuser+":"+Meteor.settings.public.dbpass+"@"+Meteor.settings.public.dbhost+"/"+Meteor.settings.public.dbname;
 
 JsonRoutes.add("post", "/isea3h/:orientation/:level/geojson", function (req, res, next) {
   var level = req.params.level;

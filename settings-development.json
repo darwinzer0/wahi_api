@@ -1,0 +1,8 @@
+{
+  "public": {
+  },
+  "private": {
+    "dbpass": "pass",
+    "dbuser": "user"
+  }
+}

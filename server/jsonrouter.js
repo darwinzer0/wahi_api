@@ -260,6 +260,7 @@ JsonRoutes.add("get", "/isea3h/:orientation/:level/gaz/:id", function (req, res,
             "@id": "http://www.w3.org/2002/07/owl#sameAs"
           }
         },
+        "id": "dg3:isea3h/"+orientation+"/"+level+"/gaz/"+id,
         "sameAs": [ "http://sws.geonames.org/"+id+"/" ],
         "crs": {
           "type": "name",
@@ -548,6 +549,7 @@ JsonRoutes.add("get", "/isea4h/:orientation/:level/gaz/:id", function (req, res,
             "@container": "@set"
           }
         },
+        "id": "dg3:isea4h/"+orientation+"/"+level+"/gaz/"+id,
         "sameAs": [ "http://sws.geonames.org/"+id+"/" ],
         "crs": {
           "type": "name",
@@ -835,6 +837,7 @@ JsonRoutes.add("get", "/isea4t/:orientation/:level/gaz/:id", function (req, res,
             "@container": "@set"
           }
         },
+        "id": "dg3:isea4t/"+orientation+"/"+level+"/gaz/"+id,
         "sameAs": [ "http://sws.geonames.org/"+id+"/" ],
         "crs": {
           "type": "name",
